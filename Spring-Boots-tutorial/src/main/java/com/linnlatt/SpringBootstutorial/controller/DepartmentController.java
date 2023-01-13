@@ -2,28 +2,34 @@ package com.linnlatt.SpringBootstutorial.controller;
 
 import com.linnlatt.SpringBootstutorial.entity.Department;
 import com.linnlatt.SpringBootstutorial.service.DepartmentService;
-import com.linnlatt.SpringBootstutorial.service.DepartmentServiceImpl;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-public class DepartmentController {
-    @Autowired
+public class DepartmentController { @Autowired
     private DepartmentService departmentService;
 
-    @PostMapping("/departments")
-    public Department saveDepartment(@RequestBody Department department){
+    private final Logger LOGGER =
+            LoggerFactory.getLogger(DepartmentController.class);
 
+    @PostMapping("/departments")
+    public Department saveDepartment(@Valid @RequestBody Department department){
+        LOGGER.info("Inside saveDepartment");
         return departmentService.saveDepartment(department);
     }
     @GetMapping("/departments")
     public List<Department> fetchDepartmentList(){
+        LOGGER.info("Inside fetchDepartment");
         return departmentService.fetchDepartmentList();
     }
     @GetMapping("/departments/{id}")
     public Department fetchDepartmentById(@PathVariable("id") Long departmentId){
+        LOGGER.info("Inside Fetch DepartmentByID");
         return departmentService.fetchDepartmentById(departmentId);
     }
     @DeleteMapping("/departments/{id}")

@@ -1,15 +1,21 @@
 package com.linnlatt.SpringBootstutorial.entity;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
+
 
 @Entity
 public class Department {
     @Id
     @GeneratedValue(strategy=  GenerationType.AUTO)
     private Long departmentId;
+    @NotBlank(message = "Please Add Department Name")
+    @Length(max=10,min=1, message = "Length is only between 10 and 1 characters")
     private String departmentName;
     private String departmentAddress;
     private String departmentCode;
